@@ -1,0 +1,37 @@
+<apex:page standardController="Account" extensions="CustomPaginationExt">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="Page Size" > 
+            <apex:pageBlockSection columns="1" >
+                    <apex:selectList size="1" value="{!pageSize}">                        
+                        <apex:selectOption itemValue="10" itemLabel="10"/>
+                        <apex:selectOption itemValue="50" itemLabel="50"/>
+                        <apex:selectOption itemValue="100" itemLabel="100"/>
+                        <apex:actionSupport event="onchange" action="{!getInitialAccountSet}" rerender="accts"/>
+                    </apex:selectList>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock id="accts" title="Large Accounts" > 
+            <apex:pageBlockSection columns="1" >
+                 <apex:pageblockTable value="{!accounts}" var="acct" >
+                    <apex:column >
+                            <apex:facet name="header">Account Name</apex:facet>
+                            <apex:outputField value="{!acct.name}"/>
+                    </apex:column>
+                    <apex:column >
+                            <apex:facet name="header">Industry</apex:facet>
+                            <apex:outputField value="{!acct.Industry}"/>
+                    </apex:column>
+                    <apex:column >
+                            <apex:facet name="header">Annual Revenue</apex:facet>
+                            <apex:outputField value="{!acct.annualRevenue}"/>
+                    </apex:column>
+                 </apex:pageblockTable>
+             </apex:pageBlockSection>
+            <br/>
+            <apex:outputPanel style="text-align:center;horizontal-align:center;">
+                <apex:commandLink rendered="{!NOT(pageNumber == 0)}" action="{!previous}" rerender="accts">Prev</apex:commandLink>     |      <apex:commandLink rendered="{!NOT(pageNumber == noOfPages -1)}" action="{!next}" rerender="accts">Next</apex:commandLink> 
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>           
+</apex:page>
