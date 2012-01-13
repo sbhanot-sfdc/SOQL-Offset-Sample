@@ -1,0 +1,1 @@
+This simple Visualforce page and extension class show how you can use the SOQL OFFSET clause to implement pagination in a Visualforce page.
